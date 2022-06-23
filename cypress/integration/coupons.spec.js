@@ -24,7 +24,7 @@ it('Should list specific coupon', () => {
 })
 
 it('Should create a new coupon', () => {
-    let code = `Coupon ${Math.floor(Math.random() * 100000000)}`           
+    let code = `Coupon ${Math.floor(Math.random() * 10000)}`           
     cy.request({
         method: 'POST', 
         url: `coupons/`,
