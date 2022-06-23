@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 const token = require('../fixtures/token.json') 
 const data = require('../fixtures/data.json')
-const response = require('../fixtures/response.json')
 
 
 it('Should list all coupons', () => {           
