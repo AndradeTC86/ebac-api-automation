@@ -2,6 +2,15 @@
 const token = require('../fixtures/token.json') 
 const data = require('../fixtures/data.json')
 
+it.only('Should validate the authentication', () => {           
+    cy.request({
+        method: 'GET', 
+        url: `coupons`, 
+        failOnStatusCode: false
+    }).then(response => {
+        expect(response.status).to.equal(401)       
+    })    
+})
 
 it('Should list all coupons', () => {           
         cy.request({
