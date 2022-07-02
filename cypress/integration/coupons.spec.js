@@ -2,13 +2,14 @@
 const token = require('../fixtures/token.json') 
 const data = require('../fixtures/data.json')
 
-it.only('Should validate the authentication', () => {           
+it('Should validate the authentication', () => {           
     cy.request({
         method: 'GET', 
         url: `coupons`, 
         failOnStatusCode: false
     }).then(response => {
-        expect(response.status).to.equal(401)       
+        expect(response.status).to.equal(401)
+        expect(response.body.message).to.contain("Sem permissão para listar recursos.")       
     })    
 })
 
@@ -18,7 +19,8 @@ it('Should list all coupons', () => {
             url: `coupons`,
             headers: {authorization: token.auth}
         }).then(response => {
-            expect(response.status).to.equal(200)       
+            expect(response.status).to.equal(200)
+            expect([response.body]).to.be.instanceOf(Array)
         })    
 })
 
@@ -28,7 +30,20 @@ it('Should list specific coupon', () => {
         url: `coupons/${data.id}`,
         headers: {authorization: token.auth}
     }).then(response => {
-        expect(response.status).to.equal(200)        
+        expect(response.status).to.equal(200)
+        expect([response.body]).to.be.instanceOf(Array)        
+    })    
+})
+
+it.only('Should validate invalid coupon', () => {           
+    cy.request({
+        method: 'GET', 
+        url: `coupons/${data.fake_id}`,
+        headers: {authorization: token.auth}, 
+        failOnStatusCode: false 
+    }).then(response => {
+        expect(response.status).to.equal(404)
+        expect(response.body.message).to.contain("ID inválido.")        
     })    
 })
 
@@ -47,6 +62,7 @@ it('Should create a new coupon', () => {
           }
     }).then(response => {
         expect(response.status).to.equal(201)        
+        expect([response.body]).to.be.instanceOf(Array)         
     })    
 })
 

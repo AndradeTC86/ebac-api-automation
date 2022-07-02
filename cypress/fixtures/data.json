@@ -1,5 +1,6 @@
 {
     "id": "6217",
+    "fake_id": "999999",
     "code": "Coupon 100",
     "amount": "15.00",
     "discount_type": "percent",
